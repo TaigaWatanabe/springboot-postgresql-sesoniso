@@ -40,7 +40,7 @@ public class LoginFilter implements Filter{
 		if (user == null) {
 			errorMessagesLogin = "Please login";
 			session.setAttribute("errorMessagesLogin", errorMessagesLogin);
-			((HttpServletResponse) response).sendRedirect("login");
+			((HttpServletResponse) response).sendRedirect("Login");
 			return;
 		}
 
@@ -48,7 +48,7 @@ public class LoginFilter implements Filter{
 			errorMessagesLogin = "This account is suspended!";
 			session.setAttribute("errorMessagesLogin", errorMessagesLogin);
 			session.removeAttribute("loginUser");
-			((HttpServletResponse) response).sendRedirect("login");
+			((HttpServletResponse) response).sendRedirect("Login");
 			return;
 		}
 
