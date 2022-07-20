@@ -63,7 +63,7 @@ public class ForumController {
 		List<Comment> commentFilterdData = commentService.findAllCommentByUserId(userId);
 
 		// Set a top page
-		mav.setViewName("op");
+		mav.setViewName("top");
 		// Store an object
 		mav.addObject("UsersPosts", UsersPosts);
 		mav.addObject("userInfo",userData);
