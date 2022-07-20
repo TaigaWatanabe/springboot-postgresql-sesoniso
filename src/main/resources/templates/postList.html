@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+	<head>
+		<meta charset="UTF-8">
+		<title>PostList</title>
+
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="/css/top.css">
+
+		<script src="/js/top.js"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+		<script src="/js/postList_ajax.js"></script>
+	</head>
+	<body>
+		<div layout:fragment="content">
+			<div class="body">
+				<div class="postListPage" style="float: left; width: 50%;">
+					<button type="button" class="reload_ajax_btn" style="outline: none;" id="PostList">
+						<h2>Post List</h2>
+					</button>
+					<div class="postMain" >
+						<div class="postList postList_left">
+							<div th:each="reportUser, state : ${reportUser}" class="contentes"
+							th:id="'postMain_left' + ${reportUser.id}">
+								<h5 th:id="'User' + ${reportUser.id}" th:text="'@' + ${reportUser.user.user_name}"></h5>
+								<p th:id="'contentID' + ${reportUser.id}" th:text="${reportUser.content}" style="display:inline;"></p>
+								<div class="top-space">
+									<!-- Edit func Ajax -->
+									<div  style="display:inline;" th:class="'edit' + ${reportUser.id}">
+										<a th:action="@{/Edit/{id}(id=${reportUser.id})}" method="get">
+											<button type="button" class="btn btn-outline-info"
+											th:onclick="|getEditFunk('__${reportUser.id}__')|">Edit</button>
+										</a>
+									</div>
+									<!-- Edit func Ajax -->
+
+									<!-- Delete function -->
+									<form  th:action="@{/Delete/{id}(id=${reportUser.id})}" method="delete" style="display:inline;">
+										<button type="button" class="btn btn-outline-danger"
+										th:onclick="|deleteContent('__${reportUser.id}__')|">Delete</button>
+									</form>
+									<!-- /Delete function -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="postListPage" style=" float: right; width: 50%">
+					<button type="button" class="reload_ajax_btn" style="outline: none;" id="CommentList">
+						<h2>Comment List</h2>
+					</button>
+					<div class="postMain">
+						<div class="postList postList_right">
+							<div th:each="commentUserReport, state : ${commentUserReport}" class="contentes"
+							th:id="'postMain_right' + ${commentUserReport.id}">
+								<h5 th:id="'commentUser' + ${commentUserReport.id}" th:text="'@' + ${commentUserReport.user.user_name}"></h5>
+								<p th:id="'commentID' + ${commentUserReport.id}" th:text="${commentUserReport.comment}" style="display:inline;"></p>
+								<div class="top-space">
+									<!-- Edit func Ajax -->
+									<div  style="display:inline;" th:class="'editComment' + ${commentUserReport.id}">
+										<a th:action="@{/EditComment/{id}(id=${commentUserReport.id})}" method="get">
+											<button type="button" class="btn btn-outline-info"
+											th:onclick="|getComment('__${commentUserReport.id}__')|">Edit</button>
+										</a>
+									</div>
+									<!-- Edit func Ajax -->
+
+									<!-- Delete function -->
+									<form  th:action="@{/DeleteComment/{id}(id=${commentUserReport.id})}" method="delete" style="display:inline;">
+										<button type="button" class="btn btn-outline-danger"
+										th:onclick="|deleteComment('__${commentUserReport.id}__')|">Delete</button>
+									</form>
+									<!-- /Delete function -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

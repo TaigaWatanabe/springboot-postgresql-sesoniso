@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Layout</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" type="text/css" href="/css/top.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+
+	<header>
+		<div  th:each="loginUser: ${loginUser}">
+
+			<div class="col-3 length">
+				<div class="btn-group dropright">
+
+					<form action="/BullitinBoard" class="reload_btn" method="get">
+						<button class="reload_ajax_btn" type="submit" value="button"
+						style="border: none; background-color: #00ffff; outline: none;">
+							<h4 class="font-italic mr-2"><i class="fas fa-laptop"></i> Bulletin Board</h4>
+						</button>
+					</form>
+
+					<button type="button" class="btn dropdown-toggle dropdown-toggle-split"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+					style="background-color: #00ffff; border: none; height: 3.5rem;"></button>
+					<div class="dropdown-menu">
+
+						<form action="/BullitinBoard" th:if="${loginUser.admin_user == 1}">
+							<button type="submit" class="dropdown-item text-primary" value="button">
+								<h5>TOP</h5>
+							</button>
+						</form>
+
+						<form action="/UserList" th:if="${loginUser.admin_user == 1}">
+							<button type="submit" class="dropdown-item text-success" value="button">
+								<h5>User List</h5>
+							</button>
+						</form>
+
+						<form action="/PostList" th:if="${loginUser.admin_user == 1}">
+							<button type="submit" class="dropdown-item text-warning" value="button">
+								<h5>Post & Comment List</h5>
+							</button>
+						</form>
+
+						<div class="dropdown-divider" th:if="${loginUser.admin_user == 1}"></div>
+
+						<form action="/Logout" method="get" onSubmit="return logoutcheck()">
+							<button class="dropdown-item text-danger" value="button">
+								<h5><i class="fas fa-power-off mr-2"></i>Log out</h5>
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- Post function -->
+			<div class="col-3 length">
+				<form method="post" action="/Add" th:object="${formModel}">
+					<input type="text" name="content" size="20" maxlength="20" style="height: 2rem;" class="content"/>
+					<button type="button" th:onclick="|post('__${loginUser.id}__')|" class="btn btn-success">POST</button>
+				</form>
+			</div>
+			<!-- /Post function -->
+
+			<!-- serch function -->
+			<div class="col-5 length">
+
+				<select id="choice" style="height: 2rem;">
+					<option value="1">Post</option>
+					<option value="2">Comment</option>
+					<option value="3">User Name</option>
+				</select>
+				<input type="text" name="searchText" size="20" maxlength="20" style="height: 2rem;" class="searchText"/>
+				<button type="button" id="practiceBtn" class="btn btn-primary">NarrowDown</button>
+			</div>
+			<!-- / serch function -->
+
+		</div>
+	</header>
+
+	<footer>
+		<h5>Copyright©️ 2022  Taiga's work All Rights Reserved.</h5>
+	</footer>
+
+	<!-- コンテンツの配置 -->
+	<div layout:fragment="content"></div>
+</body>
+</html>

@@ -1,0 +1,211 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
+
+/* common layout */
+header {
+	height: 4rem;
+	background-color: #00ffff;
+	margin: 1rem 0;
+	line-height: 4rem;
+}
+
+body {
+	width: 80%;
+	text-align: center;
+	margin: auto;
+	background-color: #f0f8ff;
+	font-family: 'Caveat', cursive;
+	position: relative;
+	min-height: 97vh;
+}
+
+footer {
+	background-color: #00ffff;
+	position: absolute;
+	bottom: 0;
+	text-align: center;
+	color: black;
+	width: 100%;
+	padding: 1rem;
+	margin: 1rem 0;
+}
+
+body h2 {
+  color: #00ffff;
+  border-bottom: dashed 2px #00ffff;
+  display: inline-block;
+}
+
+/* common layout */
+
+/* top */
+.length {
+	text-align: center;
+	display: inline-block;
+}
+
+.common-function {
+	margin: 1rem 0;
+}
+
+#wrapper {
+	height: 70vh;
+	overflow-y: scroll;
+	width: 59%;
+}
+
+#contents {
+	background-color: #f0f8ff;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+}
+
+#common-wrapper {
+	height: 30vh;
+	overflow-y: scroll;
+	width: 100%;
+}
+
+.list_post {
+	margin: 1rem;
+	padding: 1rem;
+	width: 85%;
+	height: 70%;
+	border: thin solid black;
+}
+
+.right-content {
+    float: right;
+    width: 40%;
+    margin: 0 0 2rem 0;
+    padding: 2rem 0;
+    background-color: white;
+    height: 70vh;
+    position: relative;
+}
+
+.contentes {
+	padding: 1rem 0;
+}
+
+.top-space {
+	margin-top: 1rem;
+}
+
+.edit {
+	margin: 2rem auto;
+}
+
+.userEdit {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}
+
+.userInformation {
+	width: 80%;
+	margin: auto;
+}
+
+.user_edit_ajax {
+	margin-top: 1rem;
+	width: 100%;
+}
+
+.right-up-content {
+	height: 44%;
+}
+
+.right-bottom-content {
+	height: 50%;
+}
+
+#right-contents {
+  background-color: white;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.moveBtn {
+	position: absolute;
+	top: 50%;
+}
+
+/* top */
+
+/* User List */
+
+.main {
+	height: 65vh;
+	overflow-y: scroll;
+	width: 100%;
+}
+
+.main h4 {
+	margin-top: 1rem;
+}
+
+.userlist {
+	background-color: #f0f8ff;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+}
+
+.list {
+	margin: 1rem;
+	padding: 1rem;
+	width: 90%;
+	box-shadow:rgba(152, 251, 152, 0.360784) 0px 0px 24px 20px;
+	-webkit-box-shadow:rgba(152, 251, 152, 0.360784) 0px 0px 5px 5px;
+	-moz-box-shadow:rgba(152, 251, 152, 0.360784) 0px 0px 10px 10px;
+	position: relative;
+}
+
+/* User List */
+
+/* Post List */
+
+.postMain {
+	height: 65vh;
+	overflow-y: scroll;
+	width: 100%;
+}
+
+.postList {
+	background-color: #f0f8ff;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+}
+
+.reload_ajax_btn {
+	border: none;
+	background-color: #f0f8ff;
+	outline: none;
+}
+
+/* Post List */
+
+/* login signup*/
+
+.common_login_signup {
+	width: 80%;
+	margin: 0 auto;
+	text-area: center;
+	padding: 1rem 0;
+	font-family: 'Caveat', cursive;
+}
+
+.account_main {
+	margin: 0 auto;
+	padding: 1rem;
+	width: 60%;
+	box-shadow:rgba(152, 251, 152, 0.360784) 0px 0px 24px 20px;
+	-webkit-box-shadow:rgba(152, 251, 152, 0.360784) 0px 0px 15px 15px;
+	-moz-box-shadow:rgba(152, 251, 152, 0.360784) 0px 0px 15px 15px;
+}
+
+.input-group {
+	margin: 2rem 0;
+}
+
+/* login signup*/

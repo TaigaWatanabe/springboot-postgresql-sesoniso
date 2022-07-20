@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+	<head>
+		<meta charset="UTF-8">
+		<title>UserList</title>
+
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="/css/top.css">
+
+		<script src="/js/top.js"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+		<script src="/js/user_ajax.js"></script>
+		<script src="/js/narrowDownUser_ajax.js"></script>
+	</head>
+	<body>
+		<div layout:fragment="content">
+			<div class="body">
+				<button type="button" class="reload_ajax_btn" style="outline: none;" id="UserList">
+					<h2>User List</h2>
+				</button>
+				<div class="main" th:each="loginUser : ${loginUser}">
+					<input type="hidden" th:value="${loginUser.id}" id="loginUserId"/>
+					<div class="userlist">
+						<div th:each="userinfo, state : ${userInfoAll}" th:class="'contentes' + ${userinfo.id}">
+							<div class="list" th:id="'change_status' + ${userinfo.id}">
+								<div th:if="${userinfo.admin_user == 0}" th:id="'adminGeneral' + ${userinfo.id}">
+									<h4 class="text-primary">General User</h4>
+									<form action="/AdminGeneral">
+										<button type="button" class="btn btn-outline-success"
+										th:onclick="|return adminGeneral('__${userinfo.id}__','__${userinfo.admin_user}__')|">
+										Change to Admin User</button>
+									</form>
+								</div>
+								<div th:if="${userinfo.admin_user == 1}" th:id="'adminGeneral' + ${userinfo.id}">
+									<h4 class="text-success">Admin User</h4>
+									<form th:if="${loginUser.id != userinfo.id}" action="/AdminGeneral">
+										<button type="button" class="btn btn-outline-primary"
+										th:onclick="|return adminGeneral('__${userinfo.id}__','__${userinfo.admin_user}__')|">
+										Change to General User</button>
+									</form>
+								</div>
+
+								<h4>Name : <span th:text="${userinfo.name}"></span></h4>
+								<h4>User Name : <span th:text="'@' + ${userinfo.user_name}" ></span></h4>
+								<h4>Number of posts : <span th:text="${userinfo.reportCount}"></span></h4>
+								<h4>Number of comments : <span th:text="${userinfo.commentCount}"></span></h4>
+
+								<div th:if="${userinfo.account_status == 0}"  class="top-space" th:id="'account_status' + ${userinfo.id}">
+									<h4>Status : <span class="text-success">Running</span></h4>
+									<form action="/Change" method="put" th:if="${loginUser.id != userinfo.id}">
+										<button type="button" class="btn btn-outline-danger"
+										th:onclick="|return statuschange('__${userinfo.id}__','__${userinfo.account_status}__')|">Suspend</button>
+									</form>
+								</div>
+								<div th:if="${userinfo.account_status == 1}" class="top-space" th:id="'account_status' + ${userinfo.id}">
+									<h4>Status : <span class="text-danger">Stopping</span></h4>
+									<form action="/Change" method="put">
+										<button  type="button" class="btn btn-outline-success"
+										th:onclick="|return statuschange('__${userinfo.id}__','__${userinfo.account_status}__')|">Resume</button>
+									</form>
+								</div>
+
+								<div class="userEdit">
+									<a th:action="@{/UserEdit/{id}(id=${userinfo.id})}" method="get">
+										<button type="button" class="btn btn-outline-secondary"
+										th:onclick="|getUserEdit('__${userinfo.id}__','__${loginUser.id}__')|">Edit</button>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

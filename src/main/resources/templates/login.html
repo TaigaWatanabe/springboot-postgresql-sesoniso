@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Login</title>
+
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="/css/top.css">
+		<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+
+		<script src="/js/top.js"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	</head>
+	<body>
+		<div class="common_login_signup">
+			<h4 th:each="errorMessages : ${errorMessagesLogin}" th;if="${errorMessages != null}"
+			th:text="${errorMessages}" class="text-danger mb-3"></h4>
+
+			<h1 class="font-italic mb-3"><i class="fas fa-laptop"></i> Bulletin Board</h1>
+			<div class="account_main">
+				<h1>Log In</h1>
+				<form onSubmit="return logincheck()" action="/Login" method="post" th:object="${formModel}">
+
+					<div class="input-group">
+					  	<input type="text" name="name" class="form-control" placeholder="Name" id="name"
+					     size="20" maxlength="20"/>
+					</div>
+
+					<div class="input-group">
+					  	<input type="text" name="user_name" class="form-control" placeholder="User Name" id="user_name"
+					     size="20" maxlength="20"/>
+					</div>
+
+					<div class="input-group" >
+					  	<input type="password" name="password" class="form-control" placeholder="Password" id="password"
+					  	size="20" maxlength="20"/>
+					  	<div class="mt-1">
+					  		<span id="buttonEye" class="fa fa-eye" onclick="pushHideButton()"></span>
+					  	</div>
+					</div>
+
+					<button type="submit" class="btn btn-outline-primary" style="margin-bottom: 2rem">
+						Log In
+					</button><br />
+				</form>
+
+				<form action="/SignUp">
+					<button type="submit" class="btn btn-outline-info" >New Registration Page</button>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

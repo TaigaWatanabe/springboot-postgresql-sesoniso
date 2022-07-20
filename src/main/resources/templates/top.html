@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+	<head>
+		<meta charset="UTF-8">
+		<title>TOP</title>
+
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="./css/top.css">
+
+		<script src="/js/top.js"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+		<script src="/js/report_ajax.js"></script>
+		<script src="/js/user_ajax.js"></script>
+		<script src="/js/comment_ajax.js"></script>
+		<script src="/js/narrowDown_ajax.js"></script>
+	</head>
+	<body>
+		<div layout:fragment="content">
+			<div class="body" th:each="loginUser : ${loginUser}">
+				<div class ="left-content" id="wrapper" style="float: left;">
+				    <div class ="left-contents" id="contents">
+						<div th:each="userPost, state : ${UsersPosts}" class="contentes" th:id="${userPost.id}">
+							<div id="common-wrapper" th:class="'common_wrapper' + ${userPost.id}">
+								<div class="list_post" th:id="'list_post' + ${userPost.id}">
+									<h5 th:id="'userID' + ${userPost.id}" th:text="'@' + ${userPost.user.user_name}"
+									th:class="'PCUserNumber' + ${userPost.user.id}"></h5>
+									<p th:id="'contentID' + ${userPost.id}" th:text="${userPost.content}"
+									style="display:inline;"></p>
+									<form method="post" action="/AddComment">
+										<input type="text" name="content" size="20" maxlength="20" style="height: 2rem;"
+										th:class="'reply' + ${userPost.id}"/>
+										<button th:onclick="|comment('__${loginUser.id}__','__${userPost.id}__')|"
+										 class="btn btn-info" type="button">Reply</button>
+									</form>
+								</div>
+
+								<div th:id="'postComment' + ${commentUserPost.id}" th:each="commentUserPost: ${commentUserPost}">
+									<div th:if="${commentUserPost.reportuser.id == userPost.id}">
+										<h5 th:text="'@' + ${commentUserPost.user.user_name}" th:class="'PCUserNumber' + ${commentUserPost.user.id}"
+										th:id="'commentUserId' + ${commentUserPost.id}"></h5>
+										<p th:class="'commentID' + ${commentUserPost.id}"
+										th:text="${commentUserPost.comment}" style="display:inline;"
+										></p>
+									</div>
+								</div>
+							</div>
+						</div>
+				    </div>
+			  	</div>
+
+				<!-- User info -->
+				<div class="right-content">
+					<div class="right-up-content">
+						<div class="userInfo" th:id="${loginUser.id}">
+							<div class="userEdit">
+								<a th:action="@{/UserEdit/{id}(id=${loginUser.id})}" method="get">
+									<button type="button" class="btn btn-outline-secondary"
+									th:onclick="|getUserEditFunk('__${loginUser.id}__')|">Edit</button>
+								</a>
+							</div>
+							<div class="userInformation">
+								<h1 th:text="${loginUser.name}" style="padding-top: 3rem;"></h1>
+								<h4  th:text="'@' + ${loginUser.user_name}"></h4>
+							</div>
+						</div>
+					</div>
+					<div class="right-bottom-content carousel slide" id="carouselExampleControls" data-ride="carousel">
+						<div class="carousel-inner">
+							<div class="carousel-item active">
+								<h2>Post List</h2>
+								<div id="common-wrapper">
+								    <div id="right-contents">
+										<div th:each="usercontent, state : ${userContents}" class="contentes" th:id="'right' + ${usercontent.id}">
+											<div th:id="'content_number' + ${usercontent.id}">
+												<h4 th:text="${usercontent.content}" style="display:inline;"></h4>
+											</div>
+
+											<div class="top-space">
+												<!-- Edit func Ajax -->
+												<div  style="display:inline;" th:class="'edit' + ${usercontent.id}">
+													<a th:action="@{/Edit/{id}(id=${usercontent.id})}" method="get">
+														<button type="button" class="btn btn-outline-info"
+														th:onclick="|getEditFunk('__${usercontent.id}__')|">Edit</button>
+													</a>
+												</div>
+												<!-- Edit func Ajax -->
+
+												<!-- Delete function -->
+												<form  th:action="@{/Delete/{id}(id=${usercontent.id})}" method="delete" style="display:inline;">
+													<button type="button" class="btn btn-outline-danger" th:onclick="|deleteContent('__${usercontent.id}__')|">Delete</button>
+												</form>
+												<!-- /Delete function -->
+											</div>
+
+										</div>
+								    </div>
+							  	</div>
+						  	</div>
+						  	<div class="carousel-item">
+						  		<h2>Comment List</h2>
+								<div id="common-wrapper">
+								    <div id="right-contents" class=" right_comments">
+										<div th:each="userComments, state: ${userComments}" class="contentes" th:id="'Comment' + ${userComments.id}">
+											<div th:id="'comment_number' + ${userComments.id}">
+												<h4 th:text="${userComments.comment}" style="display:inline;"></h4>
+											</div>
+
+											<div class="top-space">
+												<!-- Edit func Ajax -->
+												<div  style="display:inline;" th:id="'editComment' + ${userComments.id}">
+													<a th:action="@{/EditComment/{id}(id=${userComments.id})}" method="get">
+														<button type="button" class="btn btn-outline-info"
+														th:onclick="|getComment('__${userComments.id}__','__${state.index}__')|">Edit</button>
+													</a>
+												</div>
+												<!-- Edit func Ajax -->
+
+												<!-- Delete function -->
+												<form  th:action="@{/DeleteComment/{id}(id=${userComments.id})}" method="delete" style="display:inline;">
+													<button type="button" class="btn btn-outline-danger" th:onclick="|deleteComment('__${userComments.id}__')|">Delete</button>
+												</form>
+												<!-- /Delete function -->
+											</div>
+
+										</div>
+								    </div>
+							  	</div>
+						  	</div>
+					  	</div>
+					  	<a class="carousel-control-prev moveBtn" href="#carouselExampleControls" role="button" data-slide="prev">
+						    <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color: red;"></span>
+						    <span class="sr-only">Previous</span>
+						</a>
+						<a class="carousel-control-next moveBtn" href="#carouselExampleControls" role="button" data-slide="next">
+						    <span class="carousel-control-next-icon" aria-hidden="true" style="background-color: red;"></span>
+						    <span class="sr-only">Next</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
