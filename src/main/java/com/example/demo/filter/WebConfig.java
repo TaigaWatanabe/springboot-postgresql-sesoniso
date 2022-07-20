@@ -16,6 +16,7 @@ public class WebConfig  extends WebMvcConfigurerAdapter{
 		registrationBean.setFilter(new LoginFilter());
 		registrationBean.addUrlPatterns("/UserList");
 		registrationBean.addUrlPatterns("/BullitinBoard");
+		registrationBean.addUrlPatterns("/");
 
 		return registrationBean;
 	}
