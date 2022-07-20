@@ -184,7 +184,7 @@ public class LoginLogoutController {
 		}
 
 		mav.addObject("loginUser", accountData);
-		mav.setViewName("BullitinBoard");
+		mav.setViewName("redirect:/BullitinBoard");
 		session.setAttribute("loginUser", accountData);
 		session.removeAttribute("errorMessages");
 		return mav;
