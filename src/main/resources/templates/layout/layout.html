@@ -31,19 +31,19 @@
 					style="background-color: #00ffff; border: none; height: 3.5rem;"></button>
 					<div class="dropdown-menu">
 
-						<form action="/BullitinBoard" th:if="${loginUser.admin_user == 1}">
+						<form action="/BullitinBoard" th:if="${loginUser.admin_user == 1}" method="get">
 							<button type="submit" class="dropdown-item text-primary" value="button">
 								<h5>TOP</h5>
 							</button>
 						</form>
 
-						<form action="/UserList" th:if="${loginUser.admin_user == 1}">
+						<form action="/UserList" th:if="${loginUser.admin_user == 1}" method="get">
 							<button type="submit" class="dropdown-item text-success" value="button">
 								<h5>User List</h5>
 							</button>
 						</form>
 
-						<form action="/PostList" th:if="${loginUser.admin_user == 1}">
+						<form action="/PostList" th:if="${loginUser.admin_user == 1}" method="get">
 							<button type="submit" class="dropdown-item text-warning" value="button">
 								<h5>Post & Comment List</h5>
 							</button>
