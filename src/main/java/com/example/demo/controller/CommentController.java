@@ -181,7 +181,7 @@ public class CommentController {
 		List<ReportUser> UsersPosts = reportService.findAllUsersReport();
 		List<CommentUserReport> commentUserPost = commentService.findAllUserComment();
 
-		mav.setViewName("postlist");
+		mav.setViewName("postList");
 		mav.addObject("reportUser", UsersPosts);
 		mav.addObject("commentUserReport", commentUserPost);
 		mav.addObject("loginUser", session.getAttribute("loginUser"));
