@@ -190,7 +190,7 @@ public class UserController {
 			UserInfoAll.get(i).setCommentCount(count);
 		}
 
-		mav.setViewName("userlist");
+		mav.setViewName("userList");
 		mav.addObject("userInfoAll", UserInfoAll);
 		mav.addObject("loginUser", session.getAttribute("loginUser"));
 		return mav;
